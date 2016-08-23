@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>兼容性测试</title>
+    <style type="text/css" media="screen">
+        p {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>系统兼容性测试</h1>
+    <script type="text/javascript" src="http://dev.kdstock.cn/mobile/js/common/zepto.min.js?v=0.0.1"></script>
+
+    <script type="text/javascript">
+        var body = $("body"),
+            div = $("<div></div>"),
+            a = [5,6,7,8,9];
+
+        
+
+        p().append("系统信息 $.os: <br>" + JSON.stringify($.os));
+        p().append("浏览器信息 $.browser: <br>" + JSON.stringify($.browser));
+        // p().append("数组 a = " +　a.toString());
+        p().append("本机上数组a 支持的方法有:");
+
+        var arrMethod = Object.getOwnPropertyNames(Array.prototype).sort();
+        // method.sort();
+        p().append(arrMethod.join("<br>"));
+        p().append("支持数组方法的数量: " + arrMethod.length);
+
+        p().append("String includes: " + ("includes" in String.prototype));
+        p().append("String trim: " + ("trim" in String.prototype));
+        p().append("Array includes: " + ("includes" in Array.prototype));
+
+        p().append("performance.navigation.type:", performance.navigation.type);
+
+
+
+        function p(){
+            var _p = $("<p></p>");
+            div.append(_p);
+            return _p;
+        }
+        body.append(div);
+    </script>
+    
+</body>
+</html>

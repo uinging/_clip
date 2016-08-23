@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>test</title>
+
+	<style>
+		.box1 {
+			text-align: center;
+			position: relative;
+		}
+		.box1:after {
+			content: "";
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			left:0;
+			top:0;
+			background-color: red;
+		}
+	</style>
+
+</head>
+<body>
+
+	<input id="test1" type="checkbox" checked="checked">
+	<label for="test1">label text</label>
+
+
+	<div class="box1">text1</div>
+
+	
+	<script src="/portal/resource/js/common/jquery-1.12.4.min.js"></script>
+	<script>
+		var input = document.getElementById('test1'),
+			label = document.getElementsByTagName('label')[0];
+
+		// label.addEventListener('click', function(e){
+		// 	console.log('checked', input.checked);
+		// });
+
+		// $('label').on('click', function(e){
+		// 	setTimeout(function(){
+		// 		alert($('input').prop('checked'));
+		// 	}, 300);
+		// });
+
+
+		$('input').on('change', function(e){
+			alert($('input').prop('checked'));
+		})
+
+		// var unSupportChecded = false;
+		// try {
+			
+		// 	var input = document.createElement('input');
+
+		// 	input.type = 'checkbox';
+
+		// 	alert(input.checked);
+
+
+
+		// 	alert('checkedNum: ' + checkedNum);
+			
+		// } catch (error){
+		// 	unSupportChecded = true;
+		// }
+
+		// alert('unSupportChecded: ' + unSupportChecded);
+
+		var checkBrowser = {
+			browser : navigator.appName,
+			version : navigator.appVersion.split(";")[1].replace(/[ ]/g,""),
+			checkVersion: '',
+			lowIE: false
+		};
+
+
+		// var browser=navigator.appName 
+		// var b_version=navigator.appVersion 
+		// var version=b_version.split(";"); 
+		// var trim_Version=version[1].replace(/[ ]/g,""); 
+
+		if(checkBrowser.browser == "Microsoft Internet Explorer" && checkBrowser.version == "MSIE6.0") { 
+			checkBrowser.checkVersion = 'IE6';
+		} else if(checkBrowser.browser == "Microsoft Internet Explorer" && checkBrowser.version == "MSIE7.0") { 
+			checkBrowser.checkVersion = 'IE7';
+		} else if(checkBrowser.browser == "Microsoft Internet Explorer" && checkBrowser.version == "MSIE8.0") { 
+			checkBrowser.checkVersion = 'IE8';
+		} else if(checkBrowser.browser == "Microsoft Internet Explorer" && checkBrowser.version == "MSIE9.0") { 
+			checkBrowser.checkVersion = 'IE9';
+		}
+
+		if(checkBrowser.checkVersion == "IE6" || checkBrowser.checkVersion == "IE7" || checkBrowser.checkVersion == "IE8") {
+			checkBrowser.lowIE = true;
+		}
+
+		// alert(checkBrowser.checkVersion);
+		// alert(checkBrowser.lowIE);
+
+
+	</script>
+		
+</body>
+</html>

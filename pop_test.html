@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			border:0;
+		}
+		button {
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="pop_ctn" class="pop_ctn">
+		<style id='pop_style'>
+			.pop_ctn {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 100;
+			}
+			.pop_ctn:after {
+				content: "";
+				display: block;
+				position: relative;
+				z-index: 1;
+				height: 100%;
+				width: 100%;
+				background: url('/portal/resource/images/bg_0.png');
+				background: url('http:dev.kdstock.cn/portal/resource/images/bg_0.png');
+			}
+			.pop_wrp {
+				position: absolute;
+				z-index: 2;
+				top: 50%;
+				left: 50%;
+				width: 580px;
+				min-height: 170px;
+				margin-left: -290px;
+				margin-top: -85px;
+				background-color: #fff;
+			}
+			.pop_wrp,
+			.pop_btnCtn button {
+				border-radius: 4px;
+			}
+			.pop_title {
+				font-weight: normal;
+				padding: 15px 20px 15px 40px;
+				font-size: 18px;
+				color: #f24549;
+				background: 				   url('/portal/resource/images/icon_tishi.png') no-repeat 18px / 18px;
+				background: url('http:dev.kdstock.cn/portal/resource/images/icon_tishi.png') no-repeat 18px / 18px;
+			}
+			.pop_content {
+				padding: 24px 20px;
+			}
+			.pop_title,
+			.pop_content {
+				border-bottom: 1px solid #e5e5e5;
+			}
+
+			.pop_btnCtn {
+				padding: 8px 20px;
+				text-align: right;
+			}
+			.pop_btnCtn button {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				padding: 0 10px;
+
+				height: 30px;
+				min-width: 60px;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+			.pop_btnCtn .pop_cancel {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #e5e5e5;
+			}
+			.pop_btnCtn .pop_ok {
+				background-color: #f24549;
+				color: #fff;
+			}
+
+		</style>
+		<div id="pop_wrp" class="pop_wrp">
+			<h3 id="pop_title" class="pop_title">提示</h3>
+			<p id="pop_content" class="pop_content">这是提示内容</p>
+			<div class="pop_btnCtn"><button type="button" id='pop_ok' class="pop_ok">确定</button><button type="button" id='pop_cancel' class="pop_cancel">取消</button></div>
+		</div>
+	</div>
+
+	<script>
+		// type 取值 'tip' 'confirm'
+		function _createTip(option){
+			if($('#' + option.type + '_div').length) {
+				return;
+			}
+
+			if(!option.content) {
+				throw new Error('弹窗必须传 content');
+			}
+
+			// if(option.type === 'confirm' && !option.callback) {
+			// 	throw new Error('pop_confirm 必须传 callback');
+			// }
+
+			var title = option.title || '提示',
+				okBtnText = option.okBtnText || '确定',
+				cancelBtnText = option.cancelBtnText || '取消';
+
+			var pop_ctn = $('<div id="pop_ctn" class="pop_ctn"></div>'),
+				pop_wrp = $('<div id="pop_wrp" class="pop_wrp"></div>'),
+				pop_title = $('<h3 id="pop_title" class="pop_title"></h3>'),
+				pop_content = $('<p id="pop_content" class="pop_content"></p>'),
+				pop_btnCtn = $('<div class="pop_btnCtn"></div>'),
+				pop_ok = $('<button type="button" id="pop_ok" class="pop_ok"></button>'),
+				pop_cancel = $('<button type="button" id="pop_cancel" class="pop_cancel">取消</button>');
+
+			// 弹窗样式
+			var style = $('<style></style>');
+			style.html('.pop_ctn{position:fixed;top:0;right:0;bottom:0;left:0;z-index:100}.pop_ctn:after{content:"";display:block;position:relative;z-index:1;height:100%;width:100%;background:url(/portal/resource/images/bg_0.png)}.pop_wrp{position:absolute;z-index:2;top:50%;left:50%;width:580px;min-height:170px;margin-left:-290px;margin-top:-85px;background-color:#fff}.pop_btnCtn button,.pop_wrp{border-radius:4px}.pop_title{font-weight:400;padding:15px 20px 15px 40px;font-size:18px;color:#f24549;background:url(/portal/resource/images/icon_tishi.png) no-repeat 18px/18px}.pop_content{padding:24px 20px}.pop_content,.pop_title{border-bottom:1px solid #e5e5e5}.pop_btnCtn{padding:8px 20px;text-align:right}.pop_btnCtn button{height:30px;width:60px;margin-left:10px;cursor:pointer}.pop_btnCtn .pop_cancel{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:1px solid #e5e5e5}.pop_btnCtn .pop_ok{background-color:#f24549;color:#fff}');
+
+			pop_title.text(title);
+			pop_content.text(option.content);
+			pop_ok.text(okBtnText);
+			pop_cancel.text(cancelBtnText);
+
+			pop_btnCtn.append(pop_ok);
+			if(option.type === 'confirm') {
+				pop_btnCtn.append(pop_cancel);
+			}
+
+			pop_wrp.append(pop_title, pop_content, pop_btnCtn);
+
+			pop_ctn.append(style, pop_wrp).appendTo($('body'));
+
+			pop_ok.on('click', function(e){
+				e.stopPropagation();
+				e.preventDefault();
+
+				if(option.callback) {
+					option.callback(true);
+				}
+
+				pop_ctn.remove();
+			});
+
+			pop_cancel.on('click', function(e){
+				e.stopPropagation();
+				e.preventDefault();
+
+				if(option.type === 'confirm' && option.callback) {
+					option.callback(false);
+				}
+
+				pop_ctn.remove();
+			})
+
+		}
+
+		function pop_tip(content, callback, title, okBtnText){
+			_createTip({
+				type: 'tip',
+				content: content,
+				callback: callback,
+				titie: title,
+				okBtnText: okBtnText
+			});
+		}
+
+		function pop_confirm(content, callback, title, okBtnText, cancelBtnText){
+			_createTip({
+				type: 'confirm',
+				content: content,
+				callback: callback,
+				titie: title,
+				okBtnText: okBtnText,
+				cancelBtnText: cancelBtnText
+			});
+		}
+	</script>
+
+
+
+	
+</body>
+</html>
