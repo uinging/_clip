@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>canvas</title>
+	<style>
+		canvas {
+			outline: 1px dashed #aaa;
+		}
+	</style>
+</head>
+<body>
+
+	<canvas id='canvas' width="800" height="800"></canvas>
+
+	<script>
+		var canvas = document.getElementById('canvas'),
+			c = canvas.getContext('2d'),
+			deg = Math.PI / 180;
+
+		// c.lineWidth = 1;
+		c.strokeStyle = '#aaa';
+		// c.fillStyle = '#febf4b';
+
+		var bgfade = c.createLinearGradient(200, 200, canvas.width, canvas.height);
+		bgfade.addColorStop(0.0, '#fec64e');
+		bgfade.addColorStop(1.0, 'red');
+
+		c.fillStyle = bgfade;
+
+		// 正多边形
+		function regularPolygon(x, y, len, n, a){
+			if(n < 3) {
+				return console.log('边数不能小于3');
+			}
+			a = a || 0;
+
+			// 内角
+			var innerAngle = 180 - 360/n;
+
+			var r = len / (2 * Math.cos((innerAngle/2) * deg));
+
+			var leg = function(){
+				c.lineTo(len, 0);
+				// 移动坐标系原点到终点,为下一次旋转做准备
+				c.translate(len, 0);
+			};
+
+			c.save();
+
+			if(a || (n % 2 === 0)) {
+				// console.log('%')
+				// 如果有旋转角度,先移动到指定点,再旋转坐标系,再移动到三角形"上"顶点
+				c.translate(x, y);
+
+				if(n % 2 === 0) {
+					c.rotate((a + (540/n)) * deg);
+				} else {
+					c.rotate(a * deg);
+				}
+
+				c.translate(0, -r);
+			} else {
+				// 否则,直接移动到上顶点
+				c.translate(x, y - r);
+			}
+
+			// c.translate(x, y);
+			
+			c.beginPath();
+			c.moveTo(0, 0);
+
+			c.rotate((innerAngle + (180 - innerAngle)/2) * deg);
+			leg();
+
+			for(var i = 1; i < n; i++) {
+				c.rotate(-(180 - innerAngle) * deg);
+				leg();
+			}
+
+			c.closePath();
+			c.stroke();
+			c.fill();
+			c.restore();
+
+		}
+
+		// regularPolygon(100, 200, 50, 6);
+
+		// 雪花分形
+		function snowflake(c, x, y, len, n, a) {
+			// (x, y)为图形外接圆圆心
+			// r为外接圆半径
+			// a为旋转角度
+
+			var r = len / (2 * Math.cos(30 * deg));
+
+			var leg = function (n) {
+				c.save();
+
+				if(n == 0) {
+					c.lineTo(len, 0);
+				} else {
+					c.scale(1/3, 1/3);
+
+					leg(n - 1);
+
+					c.rotate(60 * deg);
+					leg(n - 1);
+
+					c.rotate(-120 * deg);
+					leg(n - 1);
+
+					c.rotate(60 * deg);
+					leg(n - 1);
+				}
+
+				c.restore();
+				c.translate(len, 0);
+			}
+
+			c.save();
+			if(a) {
+				// 如果有旋转角度,先移动到指定点,再旋转坐标系,再移动到三角形"上"顶点
+				c.translate(x, y);
+				c.rotate(a * deg);
+				c.translate(0, -r);
+			} else {
+				// 否则,直接移动到上顶点
+				c.translate(x, y - r);
+			}
+
+			// 画三角形，顺序为上顶点、左顶点、右顶点
+			c.moveTo(0, 0);
+			c.beginPath();
+
+			c.rotate(120 * deg);
+			leg(n);
+
+			c.rotate(-120 * deg);
+			leg(n);
+
+			c.rotate(-120 * deg);
+			leg(n);
+
+			c.closePath();
+			c.stroke();
+			c.restore();
+			c.fill();
+		}
+
+		// snowflake(c, 100, 100, 100, 0);
+		// snowflake(c, 250, 100, 100, 1);
+		// snowflake(c, 400, 100, 100, 2);
+		// snowflake(c, 550, 100, 100, 3);
+		// snowflake(c, 700, 100, 100, 4);
+
+		snowflake(c, 400, 500, 550, 5, 90);
+		// c.fillStyle = '#fff';
+		// snowflake(c, 400, 500, 200, 4, 90);
+
+		
+
+
+	</script>
+
+</body>
+</html>
