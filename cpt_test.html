@@ -13,6 +13,17 @@
 </head>
 <body>
     <h1>系统兼容性测试</h1>
+
+    <div data-v-43023fdd="" class="multiTab box-justify" count="4" data-v-38f8964d="">
+        <button data-v-38f8964d="" data-v-43023fdd="" class="adapt">按钮1</button>
+        <button data-v-38f8964d="" data-v-43023fdd="" class="adapt">按钮2</button>
+        <button data-v-38f8964d="" data-v-43023fdd="" class="adapt">按钮3</button>
+        <button data-v-38f8964d="" data-v-43023fdd="" class="adapt">按钮4</button>
+    </div>
+
+    <!-- <a href="" id='refreshBtn'>点击刷新当前页面</a> -->
+
+
     <script type="text/javascript" src="http://dev.kdstock.cn/mobile/js/common/zepto.min.js?v=0.0.1"></script>
 
     <script type="text/javascript">
@@ -38,6 +49,11 @@
 
         p().append("performance.navigation.type:", performance.navigation.type);
 
+        
+
+        p().append('multiTab children length == 4 : ', document.getElementsByClassName('multiTab')[0].children.length === 4);
+
+        p().append('反反复复.length: ', '反反复复'.length, ' abcd.length: ', 'abcd'.length, ' 1234.length: ', '1234'.length, ' 方法12ab.length', '方法12ab'.length);
 
 
         function p(){
@@ -46,6 +62,10 @@
             return _p;
         }
         body.append(div);
+
+        
+
+
     </script>
     
 </body>

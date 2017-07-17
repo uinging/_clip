@@ -1,0 +1,14 @@
+{
+  "name": "autotest",
+  "version": "1.0.0",
+  "description": "test pretice",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.3.3"
+  }
+}
