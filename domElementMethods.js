@@ -1,4 +1,4 @@
-var div = document.createElement('div');
+var div = document.createElement('input');
 var proto = div.__proto__;
 var layer = 0;
 var prop = {};
@@ -24,4 +24,4 @@ while(proto) {
 	proto = proto.__proto__;
 }
 
-console.log(prop);
+console.log(JSON.stringify(prop));

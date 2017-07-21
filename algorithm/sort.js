@@ -122,32 +122,39 @@ var arr1 = new CArray(numElements),
 var start, end;
 
 myNums.setData();
-// console.log("原始数据:");
-// console.log(myNums.toString());
+arr1.dataStore = myNums.dataStore.slice();
+arr2.dataStore = myNums.dataStore.slice();
+arr3.dataStore = myNums.dataStore.slice();
 
-var arrStr = myNums.dataStore.join(',');
-arr1.dataStore = arrStr.split(',');
-arr2.dataStore = arrStr.split(',');
-arr3.dataStore = arrStr.split(',');
+console.log("原始数据:");
+// console.log(myNums.toString());
+// console.log(myNums.dataStore);
+
+// var arrStr = myNums.dataStore.join(',');
+// arr1.dataStore = arrStr.split(',');
+// arr2.dataStore = arrStr.split(',');
+// arr3.dataStore = arrStr.split(',');
 
 
 start = new Date().getTime();
 arr1.bubbleSort();
 stop = new Date().getTime();
 console.log('冒泡排序结果:', stop - start);
-// console.log(myNums.toString());
+// console.log(arr1.toString());
+// console.log(arr1.dataStore);
 
 start = new Date().getTime();
 arr2.selectionSort();
 stop = new Date().getTime();
 console.log('选择排序结果:', stop - start);
-// console.log(myNums.toString());
+// console.log(arr2.toString());
 
 start = new Date().getTime();
 arr3.insertionSort();
 stop = new Date().getTime();
 console.log('插入排序结果:', stop - start);
-// console.log(myNums.toString());
+
+// console.log(arr3.toString());
 
 
 

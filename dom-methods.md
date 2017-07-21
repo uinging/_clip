@@ -3,7 +3,18 @@
 ## HTMLElement 方法
 方法 | 说明
 ---|---
-contentEditable | inherit(默认) true false
+contentEditable | inherit (默认) true false
+dataset 		| 自定义的 data-xx 集合对象, 不带 'data-'
+focus			| 聚焦
+hidden			| 是否有 hidden 属性
+innerText		| 取/设 内部文本, 会受到css影响,只计算可见部分
+innerHTML		| 取内部的html内容, 如果文本中有 & < > 字符, 将会被转码为 &amp; &lt; &gt;
+textContent		| 取/设 节点及后代文本,不受css影响;如果是CDATA片段、注释、文本节点、ProcessingInstruction节点,将返回 nodevalue
+nodeValue		| 返回或设置当前节点的值,对于注释或文本节点返回文本内容,其余多返回 null, 参见
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue)
+
+
+
 
 ```js
 // Node.prototype
