@@ -1,4 +1,5 @@
-var div = document.createElement('input');
+// var div = document.createElement('input');
+var div = document;
 var proto = div.__proto__;
 var layer = 0;
 var prop = {};
